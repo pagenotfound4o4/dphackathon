@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/rl_title"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dip">
+        <ImageView
+            android:layout_width="10dip"
+            android:layout_height="10dip"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dip"
+            android:background="@drawable/img_line_point"/>
+        <TextView
+            android:id="@+id/txt_date_content"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="25dip"
+            android:textColor="#FC6802"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/txt_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/rl_title"
+        android:layout_marginLeft="30dp"
+        android:paddingBottom="10dp">
+        <TextView
+            android:textSize="20sp"
+            android:id="@+id/txt_name_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#5296C5" />
+        <TextView
+            android:layout_marginTop="5dip"
+            android:textColor="#aaaaaa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_address_content"/>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/v_line"
+        android:layout_width="2dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:background="#FC6802" />
+
+</RelativeLayout>
+
