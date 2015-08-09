@@ -9,5 +9,11 @@
     <string name="tab_tuan">闪惠团购</string>b
     <string name="tab_find">发现</string>
     <string name="tab_mine">我的</string>
-    <string name="item_avg_price">￥%d/人</string>
+    <string name="item_avg_price">�d/�/string>
+    <string-array name="price_array">
+        <item>0-100</item>
+        <item>100-250</item>
+        <item>250-500</item>
+        <item>500-1000</item>
+    </string-array>
 </resources>
