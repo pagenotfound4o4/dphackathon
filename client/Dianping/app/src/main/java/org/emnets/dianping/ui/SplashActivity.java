@@ -24,11 +24,11 @@ public class SplashActivity extends Activity {
                 SharedPreferences sp = ctx.getSharedPreferences("SP", MODE_PRIVATE);
                 String number = sp.getString("STRING_NUMBER", "none");
                 if (number.equals("none")) {
-                    Intent i = new Intent(SplashActivity.this, TimeLineTest.class);
+                    Intent i = new Intent(SplashActivity.this, TimeLineActivity.class);
                     SplashActivity.this.startActivity(i);
                     SplashActivity.this.finish();
                 } else {
-                    Intent i = new Intent(SplashActivity.this, TimeLineTest.class);
+                    Intent i = new Intent(SplashActivity.this, TimeLineActivity.class);
                     SplashActivity.this.startActivity(i);
                     SplashActivity.this.finish();
                 }
