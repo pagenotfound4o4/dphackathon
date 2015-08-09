@@ -48,7 +48,7 @@ public class InviteService extends Service {
                 TimelineInfo info = TimelineHelper.getInstance().checkInvite(uid);
                 if (info.getStatus() == 0) {
                     Log.i("dp", "bid=" + info.getInfo());
-                    intent.putExtra("bid", info.getInfo());
+                    intent.putExtra("bid", String.valueOf(info.getInfo()));
                     sendBroadcast(intent);
                     break;
                 }
