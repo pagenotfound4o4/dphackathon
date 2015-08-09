@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="drawable" name="title_background">#fffcfcfc</item>
+    <item type="drawable" name="title_background_orange">@color/light_orange</item>
+</resources>
