@@ -8,6 +8,6 @@ import retrofit.http.GET;
 import retrofit.http.Path;
 
 public interface GetFavouriteBusinessService {
-    @GET("/users/{user}/favourite/{type}")
+    @GET("/users/{user}/favorite/{type}")
     List<Business> getBusinessList(@Path("user") String userId, @Path("type") String type);
 }
