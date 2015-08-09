@@ -42,8 +42,8 @@ public class ConfirmService extends Service {
 
         @Override
         public void run() {
-            TimelineInfo info = TimelineHelper.getInstance().checkConfirm(uid, bid);
             while (true) {
+                TimelineInfo info = TimelineHelper.getInstance().checkConfirm(uid, bid);
                 if (info.getStatus() == 0) {
                     intent.putExtra("bid", String.valueOf(info.getInfo()));
                     sendBroadcast(intent);
