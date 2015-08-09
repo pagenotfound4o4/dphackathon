@@ -45,7 +45,7 @@ public class ConfirmService extends Service {
             while (true) {
                 TimelineInfo info = TimelineHelper.getInstance().checkConfirm(uid, bid);
                 if (info.getStatus() == 0) {
-                    intent.putExtra("bid", String.valueOf(info.getInfo()));
+                    intent.putExtra("bid", bid);
                     sendBroadcast(intent);
                     break;
                 }
@@ -57,22 +57,4 @@ public class ConfirmService extends Service {
             }
         }
     }
-
-    Handler mHandler = new Handler();
-    Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            // request status
-            TimelineInfo info = TimelineHelper.getInstance().checkConfirm(uid, bid);
-            Log.i("dp", "execute handler in pull service");
-
-            // send broadcast
-            if (info.getStatus() == 1) {
-                intent.putExtra("bid", info.getMessage());
-                sendBroadcast(intent);
-            } else {
-                mHandler.postDelayed(runnable, 5000);
-            }
-        }
-    };
 }

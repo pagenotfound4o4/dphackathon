@@ -40,7 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
-    private String uid = "1";
+    private String uid = "2";
     private String state = "mine";
 
     private SwipeRefreshLayout refresh_layout;
