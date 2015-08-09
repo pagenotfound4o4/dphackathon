@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="text_color_default">#ff000000</color>
+    <color name="btn_default_color_light">#ffff5f11</color>
+    <color name="btn_focused_color_yellow">#fffdfdfd</color>
+    <color name="btn_pressed_color_light">#fffdfdfd</color>
+    <color name="light_orange">#ffff8400</color>
+</resources>
