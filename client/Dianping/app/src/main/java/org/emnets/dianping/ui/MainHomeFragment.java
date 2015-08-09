@@ -381,8 +381,8 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onDetach() {
+        super.onDetach();
         getActivity().unregisterReceiver(confirmReciever);
         getActivity().unregisterReceiver(inviteReciever);
     }
