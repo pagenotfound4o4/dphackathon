@@ -1,4 +1,4 @@
-package test.db;
+package main.service;
 
 import java.util.List;
 
@@ -8,23 +8,46 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import main.dao.HiberManager;
+import main.model.Favorite;
+
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-@Path("/hiber")
-public class HiberService {
+@Path("/favo")
+public class FavoriteService {
+	private String fsql = "select f.* from favorite as f, user as u where u.lover = f.uid and u.id = :userId",
+			       msql = "select f.* from favorite as f, user as u where u.id = f.uid and u.id = :userId";
+	/**
+	 * @param userId
+	 * @param type
+	 * @return
+	 */
 	@GET
 	@Path("/users/{userId}/favorite/{type}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List print(@PathParam("userId") String userId, @PathParam("type") String type) {
-		return null;
-		/*
+		String sql;
+		
+		if (type.equals("mine")) {
+			sql = msql;
+		} else if (type.equals("friend")) {
+			sql = fsql;
+		} else {
+			return null;
+		}
+		
 		Session session = HiberManager.getSessionFactory().openSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			List users = session.createQuery("from User").list();
+			SQLQuery query = session.createSQLQuery(sql);
+			query.addEntity(Favorite.class);
+			query.setParameter("userId", userId);
+			List users = query.list();
 			tx.commit();
 			return users;
 		} catch (HibernateException e) {
@@ -34,31 +57,7 @@ public class HiberService {
 			session.close();
 		}
 		return null;
-		*/
 	}
 }
 
-class Favorite {
-	private String userId;
-	private String type;
-	
-	Favorite(String uid, String type) {
-		this.userId = uid;
-		this.type = type;
-	}
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	}
-	
-	
-	
-}
+
