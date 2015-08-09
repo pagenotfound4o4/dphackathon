@@ -1,11 +1,8 @@
 package org.emnets.dianping.ui;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +12,9 @@ import org.emnets.dianping.R;
 import org.emnets.dianping.adapter.FavouriteListAdapter;
 import org.emnets.dianping.model.Business;
 import org.emnets.dianping.network.GetMyFavouriteAsyncTask;
-import org.emnets.dianping.network.SyncHelper;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit.RetrofitError;
 
 public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     private static final String URL = "http://10.128.53.109:8080/takeme/favo";
