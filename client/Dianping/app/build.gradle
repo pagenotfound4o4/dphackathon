@@ -26,4 +26,5 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp-urlconnection:2.4.0'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'com.mcxiaoke.volley:library:1.0.18'
+    compile 'com.github.JayFang1993:DropDownMenu:3e8620dc99'
 }

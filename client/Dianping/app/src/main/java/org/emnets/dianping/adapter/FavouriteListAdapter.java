@@ -18,7 +18,7 @@ import org.emnets.dianping.util.ImageUtil;
 import java.util.List;
 
 public class FavouriteListAdapter extends BaseAdapter {
-    private static final String IMG_BASE_URL = "http://i3.s1.dpfile.com";
+    private static final String IMG_BASE_URL = "http://i3.s3.dpfile.com";
     private Context context;
     private int resId;
     private List<Business> data;

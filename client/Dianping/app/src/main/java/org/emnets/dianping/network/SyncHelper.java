@@ -26,11 +26,24 @@ public class SyncHelper {
         return inst;
     }
 
-    public List<Business> getMyFavourite(String userId) {
-        return getFavouriteService.getBusinessList(userId, "mine");
+    public List<Business> getAllFavourite(String uid, String state) {
+        return getFavouriteService.getBusinessList(uid, state);
     }
 
-    public List<Business> getFriendFavourite(String userId) {
-        return getFavouriteService.getBusinessList(userId, "friend");
+    public List<Business> getBusinessListBySortedTime(String uid, String type, String order) {
+        return getFavouriteService.getBusinessListBySortedTime(uid, type, order);
+    }
+
+    public List<Business> getBusinessListBySortedPrice(String uid, String type, String order) {
+        return getFavouriteService.getBusinessListBySortedPrice(uid, type, order);
+    }
+
+    public List<Business> getBusinessListBySortedLocation(String uid, String type, double longitude,
+                                                          double latitude) {
+        return getFavouriteService.getBusinessListBySortedLocation(uid, type, longitude, latitude);
+    }
+
+    public List<Business> getBusinessListByFilterdPrice(String uid, String type, int minv, int maxv) {
+        return getFavouriteService.getBusinessListByFilterdPrice(uid, type, minv, maxv);
     }
 }

@@ -11,9 +11,6 @@ import android.view.WindowManager;
 
 import org.emnets.dianping.R;
 
-/**
- * Created by kea on 15-8-9.
- */
 public class SplashActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
