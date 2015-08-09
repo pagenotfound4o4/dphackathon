@@ -16,7 +16,7 @@ public class MainActivity extends FragmentActivity {
     private static final String TAB_TAG_FIND = "find";
     private static final String TAB_TAG_HOME = "home";
     private static final String TAB_TAG_MINE = "mine";
-    private static final String TAB_TAG_TUAN = "tuan";
+    private static final String TAB_TAG_TIME = "time";
 
     private FragmentTabHost mTabHost;
 
@@ -51,18 +51,18 @@ public class MainActivity extends FragmentActivity {
                 R.layout.tab_indicator_home);
         mTabHost.addTab(mTabHost.newTabSpec(TAB_TAG_HOME).setIndicator(home_indicator),
                 MainHomeFragment.class, null);
-        View tuan_indicator = getIndicator(getString(R.string.tab_tuan),
+        View tuan_indicator = getIndicator(getString(R.string.tab_time),
                 R.layout.tab_indicator_tuan);
-        mTabHost.addTab(mTabHost.newTabSpec(TAB_TAG_TUAN).setIndicator(tuan_indicator),
-                TuanHomeFragment.class, null);
-        View find_indicator = getIndicator(getString(R.string.tab_find),
-                R.layout.tab_indicator_search);
-        mTabHost.addTab(mTabHost.newTabSpec(TAB_TAG_FIND).setIndicator(find_indicator),
-                MainFindFragment.class, null);
-        View user_indicator = getIndicator(getString(R.string.tab_mine),
-                R.layout.tab_indicator_my);
-        mTabHost.addTab(mTabHost.newTabSpec(TAB_TAG_MINE).setIndicator(user_indicator),
-                UserFragment.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec(TAB_TAG_TIME).setIndicator(tuan_indicator),
+                TimelineFragment.class, null);
+//        View find_indicator = getIndicator(getString(R.string.tab_find),
+//                R.layout.tab_indicator_search);
+//        mTabHost.addTab(mTabHost.newTabSpec(TAB_TAG_FIND).setIndicator(find_indicator),
+//                MainFindFragment.class, null);
+//        View user_indicator = getIndicator(getString(R.string.tab_mine),
+//                R.layout.tab_indicator_my);
+//        mTabHost.addTab(mTabHost.newTabSpec(TAB_TAG_MINE).setIndicator(user_indicator),
+//                UserFragment.class, null);
     }
 
     private View getIndicator(String name, int layoutId) {

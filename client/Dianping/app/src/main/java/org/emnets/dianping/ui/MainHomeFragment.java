@@ -40,7 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
-    private String uid = "1";
+    private String uid = "2";
     private String state = "mine";
 
     private SwipeRefreshLayout refresh_layout;
@@ -51,6 +51,7 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
     private ImageUtil imageUtil;
     private DropDownMenu menu;
     private ConfirmReciever confirmReciever;
+    private InviteReciever inviteReciever;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -75,8 +76,13 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
         startrefresh(uid);
         Intent inviteIntent = new Intent(getActivity(), InviteService.class);
         inviteIntent.putExtra("uid", uid);
-        Log.i("dp", "start invite service");
+        Log.i("dp", "start invite service=" + inviteIntent);
         getActivity().startService(inviteIntent);
+
+        inviteReciever = new InviteReciever();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("org.emnets.dianping.INVITE");
+        getActivity().registerReceiver(inviteReciever, filter);
     }
 
     private void initialSwitchButton(View view) {
@@ -185,21 +191,26 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
                         Log.i("dp", "dialog ok " + item.getName());
                         // send bid to server
                         new TimelineBuyAsyncTask().execute(uid, item.getBid());
+                        Log.i("dp", "1111111");
 
                         // update listview
-                                ((Business) parent.getItemAtPosition(position)).setBstate(1);
+                        ((Business) parent.getItemAtPosition(position)).setBstate(1);
                         adapter.notifyDataSetChanged();
+                        Log.i("dp", "222222");
 
                         // register broadcast
                         confirmReciever = new ConfirmReciever();
                         IntentFilter filter = new IntentFilter();
                         filter.addAction("org.emnets.dianping.CONFIRM");
                         getActivity().registerReceiver(confirmReciever, filter);
+                        Log.i("dp", "3333333");
 
                         // start pull service
                         if ("friend".equals(state)) {
                             Intent intent = new Intent(getActivity(), ConfirmService.class);
+                            Log.i("dp", "uid=" + uid);
                             intent.putExtra("uid", uid);
+                            Log.i("dp", "bid=" + item.getBid());
                             intent.putExtra("bid", item.getBid());
                             getActivity().startService(intent);
                         }
@@ -352,7 +363,8 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
         builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                new TimelineConfirmAsyncTask().execute(uid, bid);
+                notifyServer(uid, bid);
+                dialog.dismiss();
             }
         });
         builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
@@ -362,5 +374,16 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
             }
         });
         builder.create().show();
+    }
+
+    public void notifyServer(String uid, String bid) {
+        new TimelineConfirmAsyncTask().execute(uid, bid);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        getActivity().unregisterReceiver(confirmReciever);
+        getActivity().unregisterReceiver(inviteReciever);
     }
 }

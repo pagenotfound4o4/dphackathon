@@ -1,50 +1,45 @@
 package org.emnets.dianping.ui;
 
-import android.app.Activity;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import org.emnets.dianping.R;
 import org.emnets.dianping.model.DateAdapter;
 import org.emnets.dianping.model.TimeLineItem;
 
-import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Created by kea on 15-8-9.
- */
-public class TimeLineActivity extends Activity {
+public class TimelineFragment extends Fragment {
     private ListView listView;
-    private List<TimeLineItem> items = new LinkedList<TimeLineItem>();
+    private List<TimeLineItem> items;
     private DateAdapter adapter;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.timeline_fragment, container, false);
+        listView = (ListView)view.findViewById(R.id.time_line_list_view);
 
-        setContentView(R.layout.time_line_layout);
-        listView = (ListView)findViewById(R.id.time_line_list_view);
-
-        addData();
+        if (items == null) {
+            items = getData();
+        }
 
         DateComparator comparator = new DateComparator();
         Collections.sort(items, comparator);
 
-        adapter = new DateAdapter(this, items);
+        adapter = new DateAdapter(getActivity(), items);
         listView.setAdapter(adapter);
-
+        return view;
     }
 
-    private void addData() {
+    private List<TimeLineItem> getData() {
+        List<TimeLineItem> list = new ArrayList<>();
         TimeLineItem date1 = new TimeLineItem(1439144299000l, "徐汇区中山西路2006号", "拉亚汉堡经典餐厅");
         TimeLineItem date2 = new TimeLineItem(1439146361000l, "杨浦区淞沪路303号(创智天地三期)2楼", "胡姬•兰");
         TimeLineItem date3 = new TimeLineItem(1439146361000l, "杨浦区伟德路8号", "AGOGO Kitchen & Bar");
@@ -57,17 +52,19 @@ public class TimeLineActivity extends Activity {
         TimeLineItem date10 = new TimeLineItem(1439578361000l, "静安区陕西北路66号科恩国际中心1楼免费停车", "HARU KITCHEN本店");
         TimeLineItem date11 = new TimeLineItem(1439664761000l, "徐汇区南丹东路207号", "蓝翠坊LaTree");
 
-        items.add(date1);
-        items.add(date2);
-        items.add(date3);
-        items.add(date4);
-        items.add(date5);
-        items.add(date6);
-        items.add(date7);
-        items.add(date8);
-        items.add(date9);
-        items.add(date10);
-        items.add(date11);
+        list.add(date1);
+        list.add(date2);
+        list.add(date3);
+        list.add(date4);
+        list.add(date5);
+        list.add(date6);
+        list.add(date7);
+        list.add(date8);
+        list.add(date9);
+        list.add(date10);
+        list.add(date11);
+
+        return list;
     }
 
     class DateComparator implements Comparator<TimeLineItem> {
@@ -77,4 +74,5 @@ public class TimeLineActivity extends Activity {
             return rhs.getDate().compareTo(lhs.getDate());
         }
     }
+
 }

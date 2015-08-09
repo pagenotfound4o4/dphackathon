@@ -40,6 +40,5 @@
         </activity>
         <service android:name=".service.ConfirmService"/>
         <service android:name=".service.InviteService"/>
-        <activity android:name=".ui.TimeLineActivity"></activity>
     </application>
 </manifest>

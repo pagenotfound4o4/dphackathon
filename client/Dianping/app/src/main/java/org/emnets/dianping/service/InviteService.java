@@ -4,16 +4,19 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
-import android.os.Message;
-import android.os.Messenger;
 import android.util.Log;
 
 import org.emnets.dianping.model.TimelineInfo;
 import org.emnets.dianping.network.TimelineHelper;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 public class InviteService extends Service {
     private Intent intent = new Intent("org.emnets.dianping.INVITE");
     private String uid;
+    private ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -22,25 +25,39 @@ public class InviteService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.i("dp", "run here");
+        if (intent == null) {
+            Log.i("dp", "intent=null");
+        } else {
+            Log.i("dp", "intent not null");
+        }
         uid = intent.getStringExtra("uid");
-        Log.i("dp", "uid=" + uid);
-        mHandler.post(runnable);
+        scheduler.schedule(new InviteRunnable(uid), 0, TimeUnit.SECONDS);
         return super.onStartCommand(intent, flags, startId);
     }
 
-    Handler mHandler = new Handler();
-    Runnable runnable = new Runnable() {
+    class InviteRunnable implements Runnable {
+        private String uid;
+
+        public InviteRunnable(String uid) {
+            this.uid = uid;
+        }
+
         @Override
         public void run() {
-            // request server
-            TimelineInfo info = TimelineHelper.getInstance().checkInvite(uid);
-            if (info.getFlag() == 1) {
-                intent.putExtra("bid", info.getBid());
-                sendBroadcast(intent);
-            } else {
-                mHandler.postDelayed(runnable, 5000);
+            while (true) {
+                TimelineInfo info = TimelineHelper.getInstance().checkInvite(uid);
+                if (info.getStatus() == 0) {
+                    Log.i("dp", "bid=" + info.getInfo());
+                    intent.putExtra("bid", info.getInfo());
+                    sendBroadcast(intent);
+                    break;
+                }
+                try {
+                    Thread.sleep(5000);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
-    };
+    }
 }
