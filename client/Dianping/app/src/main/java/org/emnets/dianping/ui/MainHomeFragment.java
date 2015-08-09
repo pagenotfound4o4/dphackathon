@@ -63,7 +63,7 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //startrefresh(uid);
+        startrefresh(uid);
     }
 
     private void initialSwitchButton(View view) {
@@ -127,23 +127,27 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
             //Menu展开的list点击事件  RowIndex：list的索引  ColumnIndex：menu的索引
             public void onSelected(View listview, int RowIndex, int ColumnIndex) {
                 Log.i("dp", String.format("row=%d,column=%d", RowIndex, ColumnIndex));
-                if (RowIndex == 0) {
-                    startrefresh(uid);
-                } else if (ColumnIndex == 0) {
-                } else if (ColumnIndex == 1) {
-                    filterByPrice(uid, (RowIndex-1)*100, RowIndex*100);
-                } else if (ColumnIndex == 2) {
-                    if (RowIndex == 1) {
-                        sortedByTime("asc");
-                    } else if (RowIndex == 2) {
-                        sortedByTime("desc");
-                    } else if (RowIndex == 3) {
-                        sortedByPrice("asc");
-                    } else if (RowIndex == 4) {
-                        sortedByPrice("desc");
-                    } else if (RowIndex == 5) {
-                        sortedByLocation(120.0, 30.0);
+                try {
+                    if (RowIndex == 0) {
+                        startrefresh(uid);
+                    } else if (ColumnIndex == 0) {
+                    } else if (ColumnIndex == 1) {
+                        filterByPrice(uid, (RowIndex - 1) * 100, RowIndex * 100);
+                    } else if (ColumnIndex == 2) {
+                        if (RowIndex == 1) {
+                            sortedByTime("asc");
+                        } else if (RowIndex == 2) {
+                            sortedByTime("desc");
+                        } else if (RowIndex == 3) {
+                            sortedByPrice("asc");
+                        } else if (RowIndex == 4) {
+                            sortedByPrice("desc");
+                        } else if (RowIndex == 5) {
+                            sortedByLocation(120.0, 30.0);
+                        }
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -151,7 +155,11 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void onRefresh() {
-        new GetAllFavouriteAsyncTask(this, uid, state).execute();
+        try {
+            new GetAllFavouriteAsyncTask(this, uid, state).execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public SwipeRefreshLayout getRefreshLayout() {
@@ -171,7 +179,11 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
                 refresh_layout.setRefreshing(true);
             }
         });
-        new GetAllFavouriteAsyncTask(this, uid, state).execute();
+        try {
+            new GetAllFavouriteAsyncTask(this, uid, state).execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void filterByPrice(String uid, int minv, int maxv) {
@@ -181,7 +193,11 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
                 refresh_layout.setRefreshing(true);
             }
         });
-        new GetFilterdPriceFavouriteAsyncTask(this, uid, state).execute(minv, maxv);
+        try {
+            new GetFilterdPriceFavouriteAsyncTask(this, uid, state).execute(minv, maxv);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void sortedByTime(String order) {
@@ -191,7 +207,11 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
                 refresh_layout.setRefreshing(true);
             }
         });
-        new GetSortedTimeFavouriteAsyncTask(this, uid, state).execute(order);
+        try {
+            new GetSortedTimeFavouriteAsyncTask(this, uid, state).execute(order);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void sortedByPrice(String order) {
@@ -201,7 +221,11 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
                 refresh_layout.setRefreshing(true);
             }
         });
-        new GetSortedPriceFavouriteAsyncTask(this, uid, state).execute(order);
+        try {
+            new GetSortedPriceFavouriteAsyncTask(this, uid, state).execute(order);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void sortedByLocation(double longitude, double latitude) {
@@ -211,6 +235,10 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
                 refresh_layout.setRefreshing(true);
             }
         });
-        new GetSortedLocationFavouriteAsyncTask(this, uid, state).execute(longitude, latitude);
+        try {
+            new GetSortedLocationFavouriteAsyncTask(this, uid, state).execute(longitude, latitude);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
