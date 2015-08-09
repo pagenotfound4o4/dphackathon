@@ -4,14 +4,15 @@ import android.os.AsyncTask;
 
 import org.emnets.dianping.model.Business;
 import org.emnets.dianping.ui.MainActivity;
+import org.emnets.dianping.ui.MainHomeFragment;
 
 import java.util.List;
 
 public class GetFriendFavouriteAsyncTask extends AsyncTask<String, Void, List<Business>> {
-    private MainActivity activity;
+    private MainHomeFragment fragment;
 
-    public GetFriendFavouriteAsyncTask(MainActivity activity) {
-        this.activity = activity;
+    public GetFriendFavouriteAsyncTask(MainHomeFragment fragment) {
+        this.fragment = fragment;
     }
 
     @Override
@@ -22,6 +23,7 @@ public class GetFriendFavouriteAsyncTask extends AsyncTask<String, Void, List<Bu
     @Override
     protected void onPostExecute(List<Business> businesses) {
         super.onPostExecute(businesses);
-        activity.setFriendFavouriteList(businesses);
+        fragment.updateData(businesses);
+        fragment.getRefreshLayout().setRefreshing(false);
     }
 }

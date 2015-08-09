@@ -16,7 +16,6 @@
             android:label="dianping" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -34,9 +33,6 @@
             android:theme="@style/Theme.DianpingMainActivity"
             android:label="@string/app_name" >
         </activity>
-
-        <service android:name=".service.SyncService" />
-
         <activity
             android:name=".ui.LoginActivity"
             android:label="@string/title_activity_login" >
