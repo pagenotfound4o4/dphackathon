@@ -9,11 +9,35 @@
     <string name="tab_tuan">闪惠团购</string>
     <string name="tab_find">发现</string>
     <string name="tab_mine">我的</string>
+    <string name="item_avg_price">￥%d/人</string>
+    <string name="switch_btn_me">我</string>
+    <string name="switch_btn_friend">她</string>
 
-    <string-array name="price_array">
-        <item>0-100</item>
-        <item>100-250</item>
-        <item>250-500</item>
-        <item>500-1000</item>
+    <string-array name="dist_filter">
+        <item>所有距离</item>
+        <item>500米以内</item>
+        <item>1000米以内</item>
+        <item>2000米以内</item>
+        <item>5000米以内</item>
+    </string-array>
+    <string-array name="price_filter">
+        <item>全部价格</item>
+        <item>0&#8211;100</item>
+        <item>100&#8211;200</item>
+        <item>200&#8211;300</item>
+        <item>300&#8211;400</item>
+    </string-array>
+    <string-array name="intelli_sort">
+        <item>默认排序</item>
+        <item>时间从近到远</item>
+        <item>时间从远到近</item>
+        <item>价格从低到高</item>
+        <item>价格从高到低</item>
+        <item>距离从近到远</item>
+    </string-array>
+    <string-array name="filter_column_name">
+        <item>距离过滤</item>
+        <item>价格过滤</item>
+        <item>智能排序</item>
     </string-array>
 </resources>

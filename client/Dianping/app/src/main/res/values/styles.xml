@@ -29,7 +29,10 @@
     <style name="CustomWindowTitleBackgroundOrange">
         <item name="android:background">@drawable/title_background_orange</item>
     </style>
-    <style name="Theme.Dianping" parent="@style/Theme.Base" />
+    <style name="Theme.Dianping" parent="@style/Theme.Base">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
     <style name="Theme.DianpingMainActivity" parent="@style/Theme.Dianping">
         <item name="android:windowTitleBackgroundStyle">@style/CustomWindowTitleBackgroundOrange</item>
     </style>

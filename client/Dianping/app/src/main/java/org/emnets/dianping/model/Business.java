@@ -1,24 +1,28 @@
 package org.emnets.dianping.model;
 
 public class Business {
-    private int id;
+    private String name;
+    private int fid;
     private String bid;
     private int uid;
     private long initTime;
+    private int avg_price;
+    private double lng, lat;
+    private String city;
+    private String s_photo_url;
+    private String rating_s_img_url;
 
-    public Business(int id, String bid, int uid, long initTime) {
-        this.id = id;
-        this.bid = bid;
-        this.uid = uid;
-        this.initTime = initTime;
+    @Override
+    public String toString() {
+        return String.format("Person[id=%d, uid=%d, bid=%s, starttime=%d]", fid, uid, bid, initTime);
     }
 
-    public int getId() {
-        return this.id;
+    public int getFid() {
+        return this.fid;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setFid(int fid) {
+        this.fid = fid;
     }
 
     public String getBid() {
@@ -45,8 +49,59 @@ public class Business {
         this.initTime = initTime;
     }
 
-    @Override
-    public String toString() {
-        return String.format("Person[id=%d, uid=%d, bid=%s, starttime=%d]", id, uid, bid, initTime);
+    public int getAvg_price() {
+        return avg_price;
+    }
+
+    public void setAvg_price(int avg_price) {
+        this.avg_price = avg_price;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getS_photo_url() {
+        return s_photo_url;
+    }
+
+    public void setS_photo_url(String s_photo_url) {
+        this.s_photo_url = s_photo_url;
+    }
+
+    public String getRating_s_img_url() {
+        return rating_s_img_url;
+    }
+
+    public void setRating_s_img_url(String rating_s_img_url) {
+        this.rating_s_img_url = rating_s_img_url;
     }
 }

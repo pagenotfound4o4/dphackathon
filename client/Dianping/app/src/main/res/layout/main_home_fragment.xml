@@ -1,15 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
+    <LinearLayout android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center">
+
+        <Button android:id="@+id/btn_me"
+            android:layout_width="64dp"
+            android:layout_height="32dp"
+            android:background="@drawable/zeus_tab_left_press"
+            android:textColor="@color/btn_pressed_color_light"
+            android:textSize="20sp"
+            android:text="@string/switch_btn_me"/>
+        <Button android:id="@+id/btn_friend"
+            android:layout_width="64dp"
+            android:layout_height="32dp"
+            android:background="@drawable/zeus_tab_right_normal"
+            android:textSize="20sp"
+            android:text="@string/switch_btn_friend"/>
+    </LinearLayout>
+
+    <com.jayfang.dropdownmenu.DropDownMenu android:id="@+id/filter_menu"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="60dp"
+        android:background="@color/white"/>
+
     <android.support.v4.widget.SwipeRefreshLayout android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp">
 
-        <ListView android:id="@+id/main_list"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent">
+
+            <ListView android:id="@+id/main_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <ImageView android:id="@+id/empty_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:layout_marginLeft="142dp"
+                android:src="@drawable/empty_page_nothing"/>
+        </RelativeLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
-</RelativeLayout>
+</LinearLayout>

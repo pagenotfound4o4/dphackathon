@@ -5,4 +5,6 @@
     <color name="btn_focused_color_yellow">#fffdfdfd</color>
     <color name="btn_pressed_color_light">#fffdfdfd</color>
     <color name="light_orange">#ffff8400</color>
+    <color name="white">#ffffffff</color>
+    <color name="text_grey">#ff888888</color>
 </resources>

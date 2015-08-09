@@ -14,9 +14,6 @@ import android.widget.TextView;
 
 import org.emnets.dianping.R;
 
-/**
- * Created by kea on 15-8-9.
- */
 public class BindActivity extends Activity {
     private Button button;
     private EditText editText;
