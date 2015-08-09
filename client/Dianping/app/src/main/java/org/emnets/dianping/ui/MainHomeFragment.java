@@ -40,7 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
-    private String uid = "2";
+    private String uid = "1";
     private String state = "mine";
 
     private SwipeRefreshLayout refresh_layout;
@@ -326,10 +326,10 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
             for (Business item : data) {
                 if (item.getBid().equals(bid)) {
                     item.setBstate(2);
-                    adapter.notifyDataSetChanged();
                     break;
                 }
             }
+            adapter.notifyDataSetChanged();
         }
     }
 
@@ -364,6 +364,13 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 notifyServer(uid, bid);
+                for (Business item : data) {
+                    if (item.getBid().equals(bid)) {
+                        item.setBstate(2);
+                        break;
+                    }
+                }
+                adapter.notifyDataSetChanged();
                 dialog.dismiss();
             }
         });
