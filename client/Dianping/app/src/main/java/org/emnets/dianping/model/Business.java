@@ -11,6 +11,11 @@ public class Business {
     private String city;
     private String s_photo_url;
     private String rating_s_img_url;
+    private int bstate;
+
+    public Business() {
+        this.bstate = 0;
+    }
 
     @Override
     public String toString() {
@@ -103,5 +108,13 @@ public class Business {
 
     public void setRating_s_img_url(String rating_s_img_url) {
         this.rating_s_img_url = rating_s_img_url;
+    }
+
+    public int getBstate() {
+        return bstate;
+    }
+
+    public void setBstate(int bstate) {
+        this.bstate = bstate;
     }
 }

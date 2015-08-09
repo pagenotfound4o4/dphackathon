@@ -63,4 +63,5 @@
     </style>
     <style name="Widget.QuickAction" parent="@style/Widget" />
     <style name="Widget" />
+    <style name="popup_theme" parent="Theme.AppCompat.Light"/>
 </resources>

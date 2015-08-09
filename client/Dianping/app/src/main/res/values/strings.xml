@@ -40,4 +40,11 @@
         <item>价格过滤</item>
         <item>智能排序</item>
     </string-array>
+    <string name="dialog_title">通知</string>
+    <string name="dialog_content">确定购买？</string>
+    <string name="dialog_ok">是</string>
+    <string name="dialog_cancel">否</string>
+    <string name="not_buy">未购买</string>
+    <string name="brought">已购买</string>
+    <string name="consumed">已消费</string>
 </resources>

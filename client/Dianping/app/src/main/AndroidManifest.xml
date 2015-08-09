@@ -32,6 +32,8 @@
             android:name=".ui.LoginActivity"
             android:label="@string/title_activity_login" >
         </activity>
+        <service android:name=".service.ConfirmService"/>
+        <service android:name=".service.InviteService"/>
     </application>
 
 </manifest>

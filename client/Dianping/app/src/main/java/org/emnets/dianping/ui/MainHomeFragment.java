@@ -1,13 +1,21 @@
 package org.emnets.dianping.ui;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -22,6 +30,10 @@ import org.emnets.dianping.network.GetFilterdPriceFavouriteAsyncTask;
 import org.emnets.dianping.network.GetSortedLocationFavouriteAsyncTask;
 import org.emnets.dianping.network.GetSortedPriceFavouriteAsyncTask;
 import org.emnets.dianping.network.GetSortedTimeFavouriteAsyncTask;
+import org.emnets.dianping.network.TimelineBuyAsyncTask;
+import org.emnets.dianping.network.TimelineConfirmAsyncTask;
+import org.emnets.dianping.service.ConfirmService;
+import org.emnets.dianping.service.InviteService;
 import org.emnets.dianping.util.ImageUtil;
 
 import java.util.ArrayList;
@@ -38,6 +50,7 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
     private Button btn_me, btn_friend;
     private ImageUtil imageUtil;
     private DropDownMenu menu;
+    private ConfirmReciever confirmReciever;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,11 +64,7 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
         refresh_layout.setOnRefreshListener(this);
         refresh_layout.setColorSchemeResources(android.R.color.holo_orange_light);
 
-        main_list = (ListView)view.findViewById(R.id.main_list);
-        data = new ArrayList<>();
-        adapter = new FavouriteListAdapter(getActivity(), R.layout.list_item, imageUtil, data);
-        main_list.setAdapter(adapter);
-        main_list.setEmptyView(view.findViewById(R.id.empty_img));
+        initialListView(view);
 
         return view;
     }
@@ -64,6 +73,10 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         startrefresh(uid);
+        Intent inviteIntent = new Intent(getActivity(), InviteService.class);
+        inviteIntent.putExtra("uid", uid);
+        Log.i("dp", "start invite service");
+        getActivity().startService(inviteIntent);
     }
 
     private void initialSwitchButton(View view) {
@@ -149,6 +162,57 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            }
+        });
+    }
+
+    private void initialListView(View view) {
+        main_list = (ListView)view.findViewById(R.id.main_list);
+        data = new ArrayList<>();
+        adapter = new FavouriteListAdapter(getActivity(), R.layout.list_item, imageUtil, data);
+        main_list.setAdapter(adapter);
+        main_list.setEmptyView(view.findViewById(R.id.empty_img));
+        main_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(final AdapterView<?> parent, View view, final int position, long id) {
+                final Business item = (Business)parent.getItemAtPosition(position);
+                AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getActivity(), R.style.popup_theme));
+                builder.setTitle(R.string.dialog_title)
+                        .setMessage(R.string.dialog_content);
+                builder.setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.i("dp", "dialog ok " + item.getName());
+                        // send bid to server
+                        new TimelineBuyAsyncTask().execute(uid, item.getBid());
+
+                        // update listview
+                                ((Business) parent.getItemAtPosition(position)).setBstate(1);
+                        adapter.notifyDataSetChanged();
+
+                        // register broadcast
+                        confirmReciever = new ConfirmReciever();
+                        IntentFilter filter = new IntentFilter();
+                        filter.addAction("org.emnets.dianping.CONFIRM");
+                        getActivity().registerReceiver(confirmReciever, filter);
+
+                        // start pull service
+                        if ("friend".equals(state)) {
+                            Intent intent = new Intent(getActivity(), ConfirmService.class);
+                            intent.putExtra("uid", uid);
+                            intent.putExtra("bid", item.getBid());
+                            getActivity().startService(intent);
+                        }
+                        dialog.dismiss();
+                    }
+                });
+                builder.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.create().show();
             }
         });
     }
@@ -240,5 +304,63 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    class ConfirmReciever extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String bid = intent.getStringExtra("bid");
+            Log.i("dp", "recieved " + bid);
+            for (Business item : data) {
+                if (item.getBid().equals(bid)) {
+                    item.setBstate(2);
+                    adapter.notifyDataSetChanged();
+                    break;
+                }
+            }
+        }
+    }
+
+    class InviteReciever extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String bid = intent.getStringExtra("bid");
+            Log.i("dp", "recieved invite " + bid);
+            handleInviteEvent(bid);
+        }
+    }
+
+    void handleInviteEvent(final String bid) {
+        if (!"mine".equals(state)) {
+            state = "mine";
+            startrefresh(uid);
+        }
+        for (Business item : data) {
+            if (item.getBid().equals(bid)) {
+                item.setBstate(1);
+                adapter.notifyDataSetChanged();
+                break;
+            }
+        }
+
+        // create dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getActivity(),
+                R.style.popup_theme));
+        builder.setTitle("title").setMessage("content");
+        builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                new TimelineConfirmAsyncTask().execute(uid, bid);
+            }
+        });
+        builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
     }
 }

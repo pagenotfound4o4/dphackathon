@@ -1,12 +1,10 @@
 package org.emnets.dianping.adapter;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
@@ -57,6 +55,7 @@ public class FavouriteListAdapter extends BaseAdapter {
             holder.price = (TextView)convertView.findViewById(R.id.item_price);
             holder.rating = (NetworkImageView)convertView.findViewById(R.id.item_rating);
             holder.location = (TextView)convertView.findViewById(R.id.item_location);
+            holder.bstate = (TextView)convertView.findViewById(R.id.item_bstate);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder)convertView.getTag();
@@ -72,6 +71,13 @@ public class FavouriteListAdapter extends BaseAdapter {
         holder.rating.setImageUrl(cur.getRating_s_img_url(), util.getImageLoader());
         holder.price.setText(String.format(context.getString(R.string.item_avg_price), cur.getAvg_price()));
         holder.location.setText(cur.getCity());
+        if (cur.getBstate() == 0) {
+            holder.bstate.setText(R.string.not_buy);
+        } else if (cur.getBstate() == 1) {
+            holder.bstate.setText(R.string.brought);
+        } else if (cur.getBstate() == 2) {
+            holder.bstate.setText(R.string.consumed);
+        }
         return convertView;
     }
 
@@ -81,5 +87,6 @@ public class FavouriteListAdapter extends BaseAdapter {
         NetworkImageView rating;
         TextView price;
         TextView location;
+        TextView bstate;
     }
 }
