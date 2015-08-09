@@ -22,11 +22,6 @@
         <activity android:name=".ui.BindActivity"
             android:theme="@style/Theme.Dianping"
             android:label="dianping" >
-
-        </activity>
-        <activity android:name=".ui.FilterTestActivity"
-            android:theme="@style/Theme.Dianping"
-            android:label="dianping" >
         </activity>
         <activity
             android:name=".ui.MainActivity"

@@ -29,11 +29,12 @@
     <style name="CustomWindowTitleBackgroundOrange">
         <item name="android:background">@drawable/title_background_orange</item>
     </style>
-    <style name="Theme.Dianping" parent="@style/Theme.Base" />
-    <style name="Theme.DianpingMainActivity" parent="@style/Theme.Dianping">
-        <item name="android:windowTitleBackgroundStyle">@style/CustomWindowTitleBackgroundOrange</item>
+    <style name="Theme.Dianping" parent="@style/Theme.Base">
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
+    </style>
+    <style name="Theme.DianpingMainActivity" parent="@style/Theme.Dianping">
+        <item name="android:windowTitleBackgroundStyle">@style/CustomWindowTitleBackgroundOrange</item>
     </style>
     <style name="Widget.ActionBar.TabView" parent="@android:style/Widget">
         <item name="android:gravity">center_horizontal</item>

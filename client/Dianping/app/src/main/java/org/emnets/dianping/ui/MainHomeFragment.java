@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
-    private static final String URL = "http://10.128.53.109:8080/takeme/favo";
     private String uid = "1";
     private String state = "mine";
 

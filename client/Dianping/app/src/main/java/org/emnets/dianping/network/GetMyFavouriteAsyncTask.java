@@ -24,7 +24,6 @@ public class GetMyFavouriteAsyncTask extends AsyncTask<String, Void, List<Busine
     @Override
     protected void onPostExecute(List<Business> businesses) {
         super.onPostExecute(businesses);
-        Log.i("dp", "size=" + businesses.size());
         fragment.updateData(businesses);
         fragment.getRefreshLayout().setRefreshing(false);
     }
