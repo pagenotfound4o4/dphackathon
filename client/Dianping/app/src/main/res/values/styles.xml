@@ -1,8 +1,63 @@
 <resources>
-
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="CustomNormalButton" parent="@android:style/Widget.Button">
+        <item name="android:textSize">@dimen/text_size_18</item>
+        <item name="android:textColor">@color/custom_btn_color</item>
+        <item name="android:background">@drawable/btn_light</item>
     </style>
-
+    <style name="CustomWindowTitleBackground">
+        <item name="android:background">@drawable/title_background</item>
+    </style>
+    <style name="CustomNormalCheckbox" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_normal</item>
+    </style>
+    <style name="CustomNormalRadioButton" parent="@android:style/Widget.CompoundButton.RadioButton">
+        <item name="android:button">@drawable/btn_radio_holo_light</item>
+    </style>
+    <style name="CustomNormalTextView" parent="@android:style/Widget.TextView">
+        <item name="android:textColor">@color/text_color_default</item>
+    </style>
+    <style name="Theme.Base" parent="@android:style/Theme.Light">
+        <item name="android:buttonStyle">@style/CustomNormalButton</item>
+        <item name="android:windowTitleSize">@dimen/titlebar_height</item>
+        <item name="android:windowTitleBackgroundStyle">@style/CustomWindowTitleBackground</item>
+        <item name="android:checkboxStyle">@style/CustomNormalCheckbox</item>
+        <item name="android:radioButtonStyle">@style/CustomNormalRadioButton</item>
+        <item name="android:textViewStyle">@style/CustomNormalTextView</item>
+        <item name="android:drawingCacheQuality">auto</item>
+        <item name="gdQuickActionBarItemStyle">@style/Widget.QuickAction.Bar.Item</item>
+    </style>
+    <style name="CustomWindowTitleBackgroundOrange">
+        <item name="android:background">@drawable/title_background_orange</item>
+    </style>
+    <style name="Theme.Dianping" parent="@style/Theme.Base" />
+    <style name="Theme.DianpingMainActivity" parent="@style/Theme.Dianping">
+        <item name="android:windowTitleBackgroundStyle">@style/CustomWindowTitleBackgroundOrange</item>
+    </style>
+    <style name="Widget.ActionBar.TabView" parent="@android:style/Widget">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:paddingLeft">4.0dip</item>
+        <item name="android:paddingRight">4.0dip</item>
+    </style>
+    <style name="Widget.Home.Holo.Tab" parent="@style/Widget.ActionBar.TabView">
+        <item name="android:background">@null</item>
+        <item name="android:layout_width">0.0dip</item>
+        <item name="android:layout_height">@dimen/home_tab_height</item>
+        <item name="android:minWidth">80.0dip</item>
+        <item name="android:layout_weight">1.0</item>
+    </style>
+    <style name="Widget.QuickAction.Bar.Item" parent="@style/Widget.QuickAction.Item">
+        <item name="android:background">@drawable/quick_action_bar_item</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:minWidth">80.0dip</item>
+    </style>
+    <style name="Widget.QuickAction.Item" parent="@style/Widget.QuickAction">
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:textColor">#ff333333</item>
+        <item name="android:paddingLeft">10.0dip</item>
+        <item name="android:paddingRight">10.0dip</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:drawablePadding">5.0dip</item>
+    </style>
+    <style name="Widget.QuickAction" parent="@style/Widget" />
+    <style name="Widget" />
 </resources>
