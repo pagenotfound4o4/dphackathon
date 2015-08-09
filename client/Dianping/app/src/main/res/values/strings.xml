@@ -9,4 +9,5 @@
     <string name="tab_tuan">闪惠团购</string>
     <string name="tab_find">发现</string>
     <string name="tab_mine">我的</string>
+    <string name="item_avg_price">￥%d/人</string>
 </resources>

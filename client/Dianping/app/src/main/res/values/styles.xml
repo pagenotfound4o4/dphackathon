@@ -32,6 +32,8 @@
     <style name="Theme.Dianping" parent="@style/Theme.Base" />
     <style name="Theme.DianpingMainActivity" parent="@style/Theme.Dianping">
         <item name="android:windowTitleBackgroundStyle">@style/CustomWindowTitleBackgroundOrange</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
     <style name="Widget.ActionBar.TabView" parent="@android:style/Widget">
         <item name="android:gravity">center_horizontal</item>
