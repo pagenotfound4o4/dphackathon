@@ -7,7 +7,7 @@ import java.util.List;
 import retrofit.RestAdapter;
 
 public class SyncHelper {
-    private static final String BASE_URL = "http://192.168.137.87:8080/takeme/favo";
+    private static final String BASE_URL = "http://192.168.191.3:8080/takeme/favo";
     private static SyncHelper inst = null;
     private RestAdapter restAdapter;
     private GetFavouriteBusinessService getFavouriteService;

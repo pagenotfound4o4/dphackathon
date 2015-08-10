@@ -25,13 +25,12 @@ public class InviteService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (intent == null) {
-            Log.i("dp", "intent=null");
-        } else {
-            Log.i("dp", "intent not null");
+        try {
+            uid = intent.getStringExtra("uid");
+            scheduler.schedule(new InviteRunnable(uid), 0, TimeUnit.SECONDS);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        uid = intent.getStringExtra("uid");
-        scheduler.schedule(new InviteRunnable(uid), 0, TimeUnit.SECONDS);
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -45,14 +44,14 @@ public class InviteService extends Service {
         @Override
         public void run() {
             while (true) {
-                TimelineInfo info = TimelineHelper.getInstance().checkInvite(uid);
-                if (info.getStatus() == 0) {
-                    Log.i("dp", "bid=" + info.getInfo());
-                    intent.putExtra("bid", String.valueOf(info.getInfo()));
-                    sendBroadcast(intent);
-                    break;
-                }
                 try {
+                    TimelineInfo info = TimelineHelper.getInstance().checkInvite(uid);
+                    if (info.getStatus() == 0) {
+                        Log.i("dp", "bid=" + info.getInfo());
+                        intent.putExtra("bid", String.valueOf(info.getInfo()));
+                        sendBroadcast(intent);
+                        break;
+                    }
                     Thread.sleep(5000);
                 } catch (Exception e) {
                     e.printStackTrace();

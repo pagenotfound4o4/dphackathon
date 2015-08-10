@@ -43,13 +43,13 @@ public class ConfirmService extends Service {
         @Override
         public void run() {
             while (true) {
-                TimelineInfo info = TimelineHelper.getInstance().checkConfirm(uid, bid);
-                if (info.getStatus() == 0) {
-                    intent.putExtra("bid", bid);
-                    sendBroadcast(intent);
-                    break;
-                }
                 try {
+                    TimelineInfo info = TimelineHelper.getInstance().checkConfirm(uid, bid);
+                    if (info.getStatus() == 0) {
+                        intent.putExtra("bid", bid);
+                        sendBroadcast(intent);
+                        break;
+                    }
                     Thread.sleep(5000);
                 } catch (Exception e) {
                     e.printStackTrace();
