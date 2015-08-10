@@ -63,8 +63,8 @@ public class FavouriteListAdapter extends BaseAdapter {
 
         Business cur = data.get(position);
         holder.title.setText(cur.getName());
-        holder.photo.setDefaultImageResId(R.mipmap.ic_launcher);
-        holder.photo.setErrorImageResId(R.mipmap.ic_launcher);
+        holder.photo.setDefaultImageResId(R.mipmap.icon);
+        holder.photo.setErrorImageResId(R.mipmap.icon);
         holder.photo.setImageUrl(IMG_BASE_URL + cur.getS_photo_url(), util.getImageLoader());
         holder.rating.setDefaultImageResId(R.drawable.star0);
         holder.rating.setErrorImageResId(R.drawable.star0);

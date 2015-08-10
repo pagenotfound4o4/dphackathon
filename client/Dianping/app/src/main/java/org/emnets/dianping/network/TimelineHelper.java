@@ -7,7 +7,7 @@ import org.emnets.dianping.model.TimelineInfo;
 import retrofit.RestAdapter;
 
 public class TimelineHelper {
-    private static final String BASE_URL = "http://10.128.53.109:8080/takeme/timeline";
+    private static final String BASE_URL = "http://192.168.137.87:8080/takeme/timeline";
     private static TimelineHelper inst = null;
     private RestAdapter restAdapter;
     private GetTimelineService service;

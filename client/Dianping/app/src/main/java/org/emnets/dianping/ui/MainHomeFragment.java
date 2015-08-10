@@ -15,6 +15,7 @@ import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -40,7 +41,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
-    private String uid = "2";
+    private String uid = "1";
     private String state = "mine";
 
     private SwipeRefreshLayout refresh_layout;
@@ -181,7 +182,7 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
         main_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(final AdapterView<?> parent, View view, final int position, long id) {
-                final Business item = (Business)parent.getItemAtPosition(position);
+                final Business item = (Business) parent.getItemAtPosition(position);
                 AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getActivity(), R.style.popup_theme));
                 builder.setTitle(R.string.dialog_title)
                         .setMessage(R.string.dialog_content);
@@ -224,6 +225,19 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
                     }
                 });
                 builder.create().show();
+            }
+        });
+        main_list.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                int topRowVerticalPosition = (main_list == null || main_list.getChildCount() == 0) ? 0
+                        : main_list.getChildAt(0).getTop();
+                refresh_layout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
             }
         });
     }
@@ -359,8 +373,9 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
         // create dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getActivity(),
                 R.style.popup_theme));
-        builder.setTitle("title").setMessage("content");
-        builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+        builder.setTitle(R.string.confirm_dialog_title)
+                .setMessage(R.string.confirm_dialog_content);
+        builder.setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 notifyServer(uid, bid);
@@ -374,7 +389,7 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
                 dialog.dismiss();
             }
         });
-        builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
