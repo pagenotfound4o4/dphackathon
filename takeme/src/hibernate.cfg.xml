@@ -11,5 +11,7 @@
  <property name="show_sql">true</property>
  <mapping class="main.model.User"></mapping>
  <mapping class="main.model.Favorite"/>
+ <mapping class="main.model.Tmp"/>
+ <mapping class="main.model.Timeline"/>
 </session-factory>
 </hibernate-configuration>
