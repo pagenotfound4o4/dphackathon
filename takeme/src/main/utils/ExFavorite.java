@@ -6,6 +6,7 @@ import java.util.List;
 
 import main.model.Favorite;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class ExFavorite {
@@ -54,6 +55,7 @@ public class ExFavorite {
 	public String getBid() {
 		return f.getBid();
 	}
+	
 	
 	public double getLat() {
 		return b.json.getDouble("latitude");
