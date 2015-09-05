@@ -7,7 +7,7 @@
     <string name="tab_mine">我的</string>
     <string name="item_avg_price">￥%d/人</string>
     <string name="switch_btn_me">我</string>
-    <string name="switch_btn_friend">她</string>
+    <string name="switch_btn_friend">TA</string>
 
     <string-array name="dist_filter">
         <item>所有距离</item>
@@ -18,10 +18,10 @@
     </string-array>
     <string-array name="price_filter">
         <item>全部价格</item>
-        <item>0&#8211;100</item>
-        <item>100&#8211;200</item>
-        <item>200&#8211;300</item>
-        <item>300&#8211;400</item>
+        <item>0&#8211;100元</item>
+        <item>100&#8211;200元</item>
+        <item>200&#8211;300元</item>
+        <item>300&#8211;400元</item>
     </string-array>
     <string-array name="intelli_sort">
         <item>默认排序</item>

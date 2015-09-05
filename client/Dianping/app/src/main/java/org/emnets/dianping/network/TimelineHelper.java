@@ -1,13 +1,11 @@
 package org.emnets.dianping.network;
 
-import android.util.Log;
-
 import org.emnets.dianping.model.TimelineInfo;
 
 import retrofit.RestAdapter;
 
 public class TimelineHelper {
-    private static final String BASE_URL = "http://192.168.137.87:8080/takeme/timeline";
+    private static final String BASE_URL = "http://192.168.191.3:8080/takeme/timeline";
     private static TimelineHelper inst = null;
     private RestAdapter restAdapter;
     private GetTimelineService service;
@@ -27,7 +25,6 @@ public class TimelineHelper {
     }
 
     public void buy(String uid, String bid) {
-        //Log.i("dp", );
         service.buy(uid, bid);
     }
 

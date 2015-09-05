@@ -399,13 +399,21 @@ public class MainHomeFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     public void notifyServer(String uid, String bid) {
-        new TimelineConfirmAsyncTask().execute(uid, bid);
+        try {
+            new TimelineConfirmAsyncTask().execute(uid, bid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        getActivity().unregisterReceiver(confirmReciever);
-        getActivity().unregisterReceiver(inviteReciever);
+        try {
+            getActivity().unregisterReceiver(confirmReciever);
+            getActivity().unregisterReceiver(inviteReciever);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
